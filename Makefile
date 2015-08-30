@@ -27,7 +27,6 @@ DF = -l linear -l plain-markdown
 DGS = https://github.com/jashkenas/docco
 
 # Recipes
-
 all: setup clean-all docs test-all
 
 clean :
@@ -39,7 +38,12 @@ clean-all : clean
 setup :
 	mkdir -p $(_S) $(_T) deps;
 
-	echo "# $(_C)\n___" > Readme.md;
+	echo "# $(_C) :\n___\n" > Readme.md
+	echo "Documentation :" >> Readme.md
+	$(foreach f, \
+		$(wildcard docs/*.md), \
+		echo "[$(f)]($(f))" >> Readme.md \
+	)
 
 	if [ -e $(DG) ] ; then \
 		echo "Found: $(DG)"; \
